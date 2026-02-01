@@ -170,6 +170,30 @@
             box-shadow: 0 10px 30px rgba(255, 20, 147, 0.2);
         }
 
+        /* --- FOOTER / DISCLAIMER STYLES --- */
+        .footer-disclaimer {
+            display: none; /* Hidden by default */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9); /* Whitish background */
+            border-top: 1px solid #ffc9e3;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 10px;
+            color: #888;
+            z-index: 1000; /* Sit above the background but below the heart rain */
+            line-height: 1.3;
+        }
+        
+        .footer-disclaimer p {
+            margin: 5px 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         @keyframes fadeInScale {
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
@@ -224,12 +248,16 @@
         </div>
 
         <div class="success-message">
-            <h2> 🎉 I knew you'd say yes!  🎉 </h2>
-            <div class="heart-explosion">💖💕💗💓💝</div>
+            <h1> 🎉 Confirmed. You’re officially my Valentine.  🎉 </h1>
+            // <div class="heart-explosion">💖💕💗💓💝</div>
             <img src="happy-cat.gif" alt="Dancing Cats Celebration" class="success-gif">
         </div>
-    </div>
-
+    </div> <footer id="valentineFooter" class="footer-disclaimer">
+        <p><strong>Valentine Disclaimer — © 2026 Himanshu Dhiman. All Rights Reserved.</strong></p>
+        <p>This message serves as your official Valentine receipt. Please keep this confirmation handy to redeem Valentine privileges. Benefits activate immediately upon screenshot capture, and happiness levels may rise immediately after acceptance. This confirmation is non‑transferable, cannot be exchanged, refunded, or revoked, and remains valid across all time zones. All benefits are subject to continued cuteness and good behavior. This agreement remains valid even during minor disagreements and may cause unexpected butterflies. Unauthorized use of this Valentine receipt is strictly adorable. Any attempt to revoke Valentine status will be denied politely. All interactions are monitored for cuteness compliance, and proof of Valentine status may be requested at random. Screenshot recommended for exclusive “bragging in front of friends” rights. For customer support, please contact your Valentine directly. All rights reserved by your Valentine.</p>
+        <p> Whatever sample text</p>
+    </footer>
+        
     <script>
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
@@ -386,6 +414,10 @@
             if(msg) msg.style.display = 'none';
 
             successMessage.style.display = 'block';
+
+            // --- Adding the disclaimer ---
+            document.getElementById('valentineFooter').style.display = 'block';
+            
             createHeartRain();
         });
 
