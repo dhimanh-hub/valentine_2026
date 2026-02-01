@@ -4,322 +4,369 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Will You Be My Valentine?</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            /* A more sophisticated color palette */
-            --primary: #d44d5c;       /* Deep elegant red/pink */
-            --primary-dark: #a63241;  
-            --bg-1: #fdfbfb;          /* Soft Cream */
-            --bg-2: #ebedee;          /* Soft Grey */
-            --accent: #ffb7b2;        /* Soft Peach */
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Quicksand', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe5f1 25%, #ffd6ea 50%, #ffc9e3 75%, #ffb8dc 100%);
+            overflow: hidden; /* Prevents scrollbars when button moves */
             position: relative;
-            background-color: #fdfbfb;
         }
 
-        /* --- THE NEW BACKGROUND (Mesh Gradient) --- */
-        .background-blobs {
+        /* Floating hearts background */
+        .heart-bg {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            filter: blur(80px); /* This creates the soft mesh effect */
-            opacity: 0.8;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .blob {
+        .floating-heart {
             position: absolute;
-            border-radius: 50%;
-            animation: moveBlob 20s infinite alternate;
+            font-size: 30px;
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
         }
 
-        .blob-1 {
-            width: 500px; height: 500px;
-            background: #ffc3a0;
-            top: -100px; left: -100px;
-        }
-        .blob-2 {
-            width: 400px; height: 400px;
-            background: #ffafbd;
-            bottom: -50px; right: -50px;
-            animation-delay: -5s;
-        }
-        .blob-3 {
-            width: 300px; height: 300px;
-            background: #e0c3fc;
-            bottom: 20%; left: 20%;
-            animation-delay: -10s;
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
 
-        @keyframes moveBlob {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, -50px) scale(1.1); }
-        }
-
-        /* --- THE GLASS CARD --- */
         .container {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 24px;
-            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px 50px;
             text-align: center;
-            max-width: 480px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            max-width: 500px;
             width: 90%;
             position: relative;
-            z-index: 10;
-            backdrop-filter: blur(20px); /* Heavy glass effect */
-            box-shadow: 0 20px 50px rgba(0,0,0,0.05); /* Softer shadow */
-            animation: floatCard 6s ease-in-out infinite;
+            z-index: 1; /* Low Z-Index so button can go over it */
+            backdrop-filter: blur(10px);
+            animation: slideIn 0.6s ease-out;
         }
 
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Typography improvements */
         h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            color: var(--primary);
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            font-weight: 600;
+            font-family: 'Pacifico', cursive;
+            font-size: 48px;
+            color: #ff1493;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .message {
-            font-size: 1.1rem;
-            color: #555;
+            font-size: 20px;
+            color: #ff69b4;
+            margin-bottom: 30px;
             line-height: 1.6;
-            margin-bottom: 2.5rem;
+            font-weight: 600;
         }
 
-        .emoji-showcase {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+        .emoji {
+            font-size: 60px;
+            margin: 20px 0;
+            animation: heartbeat 1.5s ease-in-out infinite;
         }
 
-        /* Buttons */
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25%, 75% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+        }
+
         .button-container {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
+            align-items: center;
+            min-height: 60px;
+            position: relative;
+            flex-wrap: wrap;
+            margin-top: 30px;
         }
 
         button {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Quicksand', sans-serif;
             font-weight: 600;
             border: none;
-            padding: 16px 40px;
-            border-radius: 100px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            color: white;
+            padding: 12px 35px;
         }
 
         #yesBtn {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 10px 20px rgba(212, 77, 92, 0.3);
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff1493 100%);
+            z-index: 10;
         }
-
-        #yesBtn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 25px rgba(212, 77, 92, 0.4);
-            background: var(--primary-dark);
-        }
+        #yesBtn:hover { box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4); }
 
         #noBtn {
-            background: #fff;
-            color: #555;
-            border: 1px solid #eee;
+            background: linear-gradient(135deg, #d3d3d3 0%, #a8a8a8 100%);
+            position: relative;
+            /* CRITICAL: High Z-Index ensures it stays on top when moving */
+            z-index: 9999; 
         }
+        #noBtn:hover { background: linear-gradient(135deg, #c0c0c0 0%, #989898 100%); }
 
-        #noBtn:hover {
-            background: #f8f8f8;
-        }
-
-        /* Success State */
-        .success-message {
-            display: none;
-        }
-        
-        .success-message h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        /* Floating Message (for No button) */
         .no-message {
             display: none;
-            background: #333;
+            position: fixed; /* Fixed to match the button */
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff1493 100%);
             color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            pointer-events: none; /* Let clicks pass through */
-            z-index: 100;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            white-space: nowrap;
+            z-index: 10000; /* Even higher than the button */
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+            font-weight: 600;
+            pointer-events: none; /* Let clicks pass through to the button */
         }
 
-        /* Heart rain specific styles */
+        .success-message {
+            display: none;
+            animation: fadeInScale 0.6s ease;
+        }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .success-message h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 42px;
+            color: #ff1493;
+            margin-bottom: 20px;
+        }
+        .success-message p {
+            font-size: 20px;
+            color: #ff69b4;
+            line-height: 1.6;
+        }
+
         .heart-rain {
             position: fixed;
             pointer-events: none;
-            z-index: 999;
-            top: -10vh;
-            font-size: 24px;
+            z-index: 1000;
         }
-
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .heart-explosion {
+            font-size: 50px;
+            margin: 20px 0;
+            animation: heartBeat 1s infinite;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container { padding: 40px 30px; }
+            h1 { font-size: 36px; }
+            .emoji { font-size: 50px; }
+            .message { font-size: 18px; }
+            button { padding: 12px 30px; font-size: 16px; }
+        }
     </style>
 </head>
 <body>
-
-    <div class="background-blobs">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
-
+    <div class="heart-bg" id="heartBg"></div>
+    
     <div class="container">
-        <div id="mainContent">
-            <div class="emoji-showcase">💝</div>
-            <h1>Will you be<br>my Valentine?</h1>
-            <p class="message">
-                You make every day feel like magic.<br>
-                I'd love to celebrate with you.
-            </p>
+        <h1>💕 Will You Be My Valentine? 💕</h1>
+        <div class="emoji">🌹</div>
+        <p class="message">
+            You make every day special. I'd love to spend Valentine's Day with you.
+            <br><br>
+            So, what do you say?
+        </p>
 
-            <div class="button-container">
-                <button id="yesBtn">Yes, absolutely</button>
-                <button id="noBtn">No</button>
-            </div>
+        <div class="button-container">
+            <button id="yesBtn">Yes! 💖</button>
+            <button id="noBtn">No</button>
         </div>
 
         <div class="success-message">
-            <div class="emoji-showcase">✨</div>
-            <h2>Best Day Ever!</h2>
-            <p class="message">I knew you'd say yes! <br> Can't wait! ❤️</p>
+            <h2>🎉 You Make Me So Happy! 🎉</h2>
+            <div class="heart-explosion">💖💕💗💓💝</div>
+            <p>
+                I'm the luckiest person in the world! 
+                <br><br>
+                Let's make this Valentine's Day unforgettable together! 💕
+            </p>
         </div>
     </div>
 
     <script>
+        // --- 1. SETUP HEARTS ---
+        const heartBg = document.getElementById('heartBg');
+        const hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '💘'];
+        
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 15 + 's';
+            heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            heartBg.appendChild(heart);
+        }
+
+        // --- 2. VARIABLES ---
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
-        const mainContent = document.getElementById('mainContent');
         const successMessage = document.querySelector('.success-message');
-        
+        const buttonContainer = document.querySelector('.button-container');
+        let scale = 1;
+        let isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         let noClickCount = 0;
+        let lastMoveX = 0;
+        let lastMoveY = 0;
+
         const funnyMessages = [
-            "Are you sure?", "Really sure?", "Think again!", 
-            "Last chance!", "Surely not?", "You might regret this!", 
-            "Give it another thought!", "Are you absolutely certain?", 
-            "This could be a mistake!", "Have a heart!", 
-            "Don't be so cold!", "Change of heart?", 
-            "Wouldn't you reconsider?", "Is that your final answer?", 
-            "You're breaking my heart ;("
+            "Are you sure? 🤔", "100% sure? 😅", "That's rude 😢",
+            "I know you didn't mean that 💔", "Just one yes? 🥺",
+            "Come on! 🙏", "Think about it... ❤️", "You'll regret this! 😭",
+            "Last chance! ⏰", "My heart is breaking 💔", "C'mon give love a chance! 💘"
         ];
 
-        // --- THE BUTTON MOVE LOGIC ---
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
+        });
+
+        // --- 3. EVENT LISTENERS ---
+        if (isMobile) {
+            noBtn.addEventListener('click', handleNoClick);
+        } else {
+            noBtn.addEventListener('mouseenter', moveButton);
+            noBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                moveButton();
+                enlargeYesButton();
+            });
+        }
+
+        function handleNoClick(e) {
+            e.preventDefault();
+            enlargeYesButton();
+            moveButton(); // Move first so we have coordinates
+            showFunnyMessage(); // Show message at new coordinates
+        }
+
+        // --- 4. THE FIX: MOVE BUTTON LOGIC ---
         function moveButton() {
-            // 1. Move to body to escape container
+            // A. Move button to body to escape the container trap
             if (noBtn.parentNode !== document.body) {
                 document.body.appendChild(noBtn);
             }
 
-            // 2. Math
-            const btnWidth = noBtn.offsetWidth || 100; 
-            const btnHeight = noBtn.offsetHeight || 40;
-            const maxX = window.innerWidth - btnWidth - 20; // 20px padding
+            // B. Calculate Safe Position
+            // Use offsetWidth so we subtract the ACTUAL button size
+            const btnWidth = noBtn.offsetWidth || 100;
+            const btnHeight = noBtn.offsetHeight || 50;
+            
+            // Keep a 20px padding from the very edge
+            const maxX = window.innerWidth - btnWidth - 20;
             const maxY = window.innerHeight - btnHeight - 20;
 
+            // Math.max ensures we don't get negative numbers if screen is small
             const randomX = Math.max(10, Math.random() * maxX);
             const randomY = Math.max(10, Math.random() * maxY);
 
-            // 3. Apply
-            noBtn.style.position = 'fixed';
+            // C. Apply Styles
+            noBtn.style.position = 'fixed'; // Stick to screen
+            noBtn.style.zIndex = '9999';    // Always on top
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
-
-            // 4. Move the funny message with it
-            const msg = document.querySelector('.no-message');
-            if (msg) {
-                if (msg.parentNode !== document.body) document.body.appendChild(msg);
-                msg.style.position = 'fixed';
-                msg.style.left = randomX + 'px';
-                msg.style.top = (randomY - 40) + 'px';
-            }
+            
+            // Save for the message to use
+            lastMoveX = randomX;
+            lastMoveY = randomY;
         }
 
-        // Handle the "No" interactions
-        noBtn.addEventListener('mouseenter', moveButton);
-        noBtn.addEventListener('click', (e) => {
-            e.preventDefault();
+        function showFunnyMessage() {
+            let message = funnyMessages[noClickCount % funnyMessages.length];
             
-            // Show funny message
-            let msg = document.querySelector('.no-message');
-            if (!msg) {
-                msg = document.createElement('div');
-                msg.className = 'no-message';
-                document.body.appendChild(msg);
+            // Create or find message element
+            let messageEl = document.querySelector('.no-message');
+            if (!messageEl) {
+                messageEl = document.createElement('div');
+                messageEl.className = 'no-message';
+                document.body.appendChild(messageEl); // Append to body
             }
-            msg.textContent = funnyMessages[noClickCount % funnyMessages.length];
-            msg.style.display = 'block';
+            
+            messageEl.textContent = message;
+            messageEl.style.display = 'block';
+            
+            // Position message above the button
+            // If button position hasn't been set yet, use the current position
+            const btnRect = noBtn.getBoundingClientRect();
+            const msgX = btnRect.left + (btnRect.width / 2); // Center horizontally
+            const msgY = btnRect.top - 50; // 50px above
+            
+            messageEl.style.left = msgX + 'px';
+            messageEl.style.top = msgY + 'px';
+            
             noClickCount++;
+        }
 
-            moveButton();
-        });
+        function enlargeYesButton() {
+            scale += 0.05;
+            yesBtn.style.transform = `scale(${scale})`;
+        }
 
-        // Handle "Yes"
+        // --- 5. YES BUTTON CLICK ---
         yesBtn.addEventListener('click', () => {
-            // Hide the No button and messages
+            // Hide Title, Emoji, Message, Button Container
+            document.querySelector('h1').style.display = 'none';
+            document.querySelector('.emoji').style.display = 'none';
+            document.querySelector('.message').style.display = 'none';
+            buttonContainer.style.display = 'none';
+            
+            // Clean up Floating Elements
             noBtn.style.display = 'none';
             const msg = document.querySelector('.no-message');
             if(msg) msg.style.display = 'none';
 
-            // Swap card content
-            mainContent.style.display = 'none';
+            // Show Success
             successMessage.style.display = 'block';
-            
             createHeartRain();
         });
 
+        // --- 6. HEART RAIN ---
         function createHeartRain() {
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 30; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
                     heart.className = 'heart-rain';
-                    heart.innerHTML = '❤️';
-                    heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.animation = `floatCard ${Math.random() * 2 + 3}s linear`;
-                    // Manual fall animation since we removed the CSS class
-                    heart.style.top = '-10px';
-                    heart.style.transition = `top ${Math.random() * 2 + 3}s ease-in`;
-                    
+                    heart.textContent = '💕';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = '-50px';
+                    heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    heart.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
                     document.body.appendChild(heart);
-                    
-                    // Trigger the fall
-                    requestAnimationFrame(() => {
-                        heart.style.top = '110vh'; 
-                    });
-
                     setTimeout(() => heart.remove(), 5000);
                 }, i * 100);
             }
