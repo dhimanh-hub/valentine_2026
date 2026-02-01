@@ -182,6 +182,28 @@
             .container { padding: 40px 30px; }
             h1 { font-size: 36px; }
         }
+
+        
+        .heart-explosion {
+            font-size: 50px;
+            margin: 20px 0;
+            animation: heartBeat 1s infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.2);
+            }
+            50% {
+                transform: scale(1);
+            }
+            75% {
+                transform: scale(1.2);
+            }
+        }
     </style>
 </head>
 <body>
@@ -203,6 +225,7 @@
 
         <div class="success-message">
             <h2> 🎉 I knew you'd say yes!  🎉 </h2>
+            <div class="heart-explosion">💖💕💗💓💝</div>
             <img src="happy-cat.gif" alt="Dancing Cats Celebration" class="success-gif">
         </div>
     </div>
